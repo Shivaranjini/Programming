@@ -1,0 +1,39 @@
+       void generateAllPrimeNumbers(int n)
+        {
+            bool[] visited = new bool[n+1];
+
+            for (int i = 1; i <= n; i = i + 2)
+            {
+                visited[i] = true;
+            }
+            int prevPrime = 3;
+
+            do
+            {
+
+                for (int i = prevPrime * prevPrime; i <= n; i = i + prevPrime)
+                {
+                    visited[i] = true;
+                }
+
+                prevPrime = getNextPrime(visited, prevPrime);
+
+            }
+            while (prevPrime != -1);
+
+            for (int i = 2; i <= n; i++)
+            {
+                if (!visited[i])
+                    Console.WriteLine(i);
+            }
+        }
+
+        int getNextPrime(bool[] visited, int prev = 2)
+        {
+            for (int i = prev + 1; i <= Math.Sqrt(visited.Length); i++)
+            {
+                if (!visited[i])
+                    return i;
+            }
+            return -1;
+        }
